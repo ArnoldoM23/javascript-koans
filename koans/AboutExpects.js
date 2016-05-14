@@ -39,12 +39,12 @@ describe("About Expects", function() {
     
     // And this is as far down as the structure goes! 
     // there is nothing more granular than an "expect" statement within a test suite.
-    expect(false).toBeTruthy(); // This should be true
+    expect(true).toBeTruthy(); // This should be true
   });
 
   // To understand reality, we must compare our expectations against reality.
   it("should expect equality", function() { 
-	  var expectedValue = FILL_ME_IN;
+	  var expectedValue = 2;
 	  var actualValue = 1 + 1;
 	
 	  // Each expect statement has only two essential pieces:
@@ -57,7 +57,7 @@ describe("About Expects", function() {
 
   // Some ways of asserting equality are better than others.
   it("should assert equality a better way", function() { 
-	  var expectedValue = FILL_ME_IN;
+	  var expectedValue = 2;
 	  var actualValue = 1 + 1;
 	
   // toEqual() compares using common sense equality.
@@ -66,7 +66,7 @@ describe("About Expects", function() {
 
   // Sometimes you need to be precise about what you "type".
   it("should assert equality with ===", function() { 
-	  var expectedValue = FILL_ME_IN;
+	  var expectedValue = "2";
 	  var actualValue = (1 + 1).toString();
 	
 	// Note that test suites are designed to be as semantic as possible
@@ -78,6 +78,6 @@ describe("About Expects", function() {
 
   // Sometimes we will ask you to fill in the values.
   it("should have filled in values", function() {
-	  expect(1 + 1).toEqual(FILL_ME_IN);
+	  expect(1 + 1).toEqual(2);
   });
 });

@@ -34,16 +34,29 @@ describe("About Applying What We Have Learnt", function() {
   });
 
   it("given I'm allergic to nuts and hate mushrooms, it should find a pizza I can eat (functional)", function () {
+      // This problems needs to return the item that does not contain any of the ingredients that the use is allergic to.
+      // I need to use filter and all or any to solve this problem.
+      // first is need to filter througt the array and return all the objects that do not contain nuts.
+      // second I must check find the object that does not contain any of the ingredients that the user is allergic to.
+      // I will to itterate through the ingredients array and if none of the ingredients match what the user is allergic to than i can push that object to the productsICanEat array.
+
+
       var productsICanEat = [];
-   // if (obj.ingredients[obj.ingredients.length-1] === "mushrooms") { return false;}else {productsICanEat.push(obj); return true}
-   //    });
-      /* solve using filter() & all() / any() */
-    _(products).chain().filter(function(obj){ return obj.containsNuts === false;}).any( function(obj){
+
+    _(products).chain().filter(function(obj){ return obj.containsNuts === false;}).any(function(obj){
+        var state = false;
         for (var i = 0; i < obj.ingredients.length; i++) {
-          if(obj.ingredients[i] !== "mushrooms"){
-            obj.push(obj)
+          if(obj.ingredients[i] === "mushrooms"){
+            state = true;
           }
         }
+        if (!state) { 
+          productsICanEat.push(obj);
+          return true
+        }else{
+          return false;
+        }
+        
       });
       expect(productsICanEat.length).toBe(1);
   });
@@ -64,6 +77,7 @@ describe("About Applying What We Have Learnt", function() {
 
   it("should add all the natural numbers below 1000 that are multiples of 3 or 5 (functional)", function () {
    /* try chaining range() and reduce() */
+
    var total = _.reduce(_.range(1000), function(memo, current){
     if (current % 3 === 0 || current % 5 === 0){ 
       return memo + current;
@@ -80,20 +94,32 @@ describe("About Applying What We Have Learnt", function() {
 
     for (i = 0; i < products.length; i+=1) {
         for (j = 0; j < products[i].ingredients.length; j+=1) {
-            ingredientCount[products[i].ingredients[j]] = (ingredientCount[products[i].ingredients[j]] || 0) + 1;
-            console.log(ingredientCount[products[i].ingredients[j]] )
+         ingredientCount[products[i].ingredients[j]] = (ingredientCount[products[i].ingredients[j]] || 0) + 1;  
         }
     }
-    console.log(ingredientCount)
     expect(ingredientCount['mushrooms']).toBe(2);
   });
 
+
   it("should count the ingredient occurrence (functional)", function () {
     var ingredientCount = { "{ingredient name}": 0 };
+    // In this problem I need to count how many times an Item shows up in the ingredients array.
+    // I will need to use map flatten and reduce to solve this problem.
+    // First I need to return and array with the subarray containing the ingredients
+    // Second I will need to flatten the array so all of the ingredients are accessible in one array.
+    // Third I need to create proterties for each ingredients and set its value pair to the number of times it appears in the ingredients array.
+    // Fourth I will need to use reduce to do this
 
     /* chain() together map(), flatten() and reduce() */
 
-    expect(ingredientCount['mushrooms']).toBe(FILL_ME_IN);
+    var gettingTheCount = _.chain(products).map(function(products){
+      return products.ingredients
+    }).flatten().reduce(function(prev, curr){
+      ingredientCount[prev] = (ingredientCount[prev] || 0) + 1;
+      prev = curr;
+      return prev;
+    }).value()
+    expect(ingredientCount['mushrooms']).toBe(2);
   });
 
   /*********************************************************************************/
